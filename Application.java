@@ -25,3 +25,17 @@ public class Application extends JFrame {
         cardLayout.show(container, "HOME"); // Start at Home
         setVisible(true);
     }
+    
+     public void showPage(String name) {
+        cardLayout.show(container, name);
+    }
+
+    public static void main(String[] args) {
+        // Use a modern Look and Feel if possible
+        try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); } 
+        catch (Exception e) {}
+        new Application();
+    }
+}
+
+
