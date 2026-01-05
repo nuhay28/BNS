@@ -5,4 +5,9 @@ import main.Application;
 
 public class RegisterPanel extends JPanel {
    
+    public RegisterPanel(Application app) {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+
     }
+}
