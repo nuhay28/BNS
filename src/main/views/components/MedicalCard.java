@@ -7,15 +7,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MedicalCard extends JPanel {
+      private static final int CARD_WIDTH = 250;
+      private static final int CARD_HEIGHT = 180;
+      private static final int BOARDER_GAP = 20;
+      private static final Color HOVER_COLOR = new Color(245, 245, 250);
+
     public MedicalCard(String title, String desc, Color accentColor, Runnable onClick) {
         setLayout(new BorderLayout(10, 10));
-        setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(250, 180));
+        setBackground(HOVER_COLOR);
+        setPreferredSize(new Dimension(CARD_WIDTH,CARD_HEIGHT));
         
         // Add the left border (the "accent")
         setBorder(BorderFactory.createCompoundBorder(
             new MatteBorder(0, 5, 0, 0, accentColor),
-            BorderFactory.createEmptyBorder(20, 20, 20, 20)
+            BorderFactory.createEmptyBorder(BOARDER_GAP, BOARDER_GAP, BOARDER_GAP, BOARDER_GAP)
         ));
 
         // Icon Placeholder (In a real app, use an ImageIcon)
