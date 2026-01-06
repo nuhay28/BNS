@@ -2,7 +2,9 @@ package main.services;
 
 public class AuthService {
     // Mocking the backend call
-    public boolean login(String email, String password) throws Exception {
+  // remove: throws Exception
+public boolean login(String email, String password)
+  {
         if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
     throw new IllegalArgumentException("Email and password cannot be null or empty");
 }
