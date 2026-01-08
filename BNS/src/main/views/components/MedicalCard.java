@@ -52,4 +52,6 @@ public class MedicalCard extends JPanel {
             public void mousePressed(MouseEvent e) { onClick.run(); }
         });
     }
+        //added log to track MedicalCard creation
+        System.out.println("MedicalCard instance created!");
 }
