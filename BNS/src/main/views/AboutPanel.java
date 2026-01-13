@@ -24,3 +24,20 @@ public class AboutPanel extends JPanel {
 
         header.add(backBtn, BorderLayout.NORTH);
         header.add(title, BorderLayout.SOUTH);
+
+        // Body Content
+        JTextArea content = new JTextArea(
+            "The Bed Notification System (BNS) is a mission-critical platform.\n\n" +
+            "Engineered by NYDev to eliminate ward congestion and synchronize " +
+            "hospital operations in real-time."
+        );
+        content.setWrapStyleWord(true);
+        content.setLineWrap(true);
+        content.setEditable(false);
+        content.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        content.setBorder(new EmptyBorder(20, 40, 20, 40));
+
+        add(header, BorderLayout.NORTH);
+        add(new JScrollPane(content), BorderLayout.CENTER);
+    }
+}
