@@ -11,7 +11,7 @@ In many medical facilities, the transition between patient arrival and bed assig
 
 **Safety Hazards:** Lack of standardized ward assignments can lead to staff burnout and delayed patient care when medical roles are not properly synchronized with departmental needs.
 
-🚀 The Solution: BNS
+## 🚀 The Solution: BNS
 
 The **Bed Notification System (BNS)** provides a centralized, real-time command center for medical staff. This app digitizes the ward lifecycle through several key features:
 
