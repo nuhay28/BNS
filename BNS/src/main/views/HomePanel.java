@@ -1,6 +1,8 @@
 package main.views;
+
 import javax.swing.*;
 import java.awt.*;
+import main.Application;
 
 public class HomePanel extends JPanel{
     public HomePanel(Application app) {
