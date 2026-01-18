@@ -40,5 +40,42 @@ public class LoginPanel extends JPanel {
         brandingPanel.add(heroText);
         brandingPanel.add(Box.createVerticalGlue());
 
+        // --- RIGHT SIDE: LOGIN FORM ---
+        JPanel formWrapper = new JPanel(new GridBagLayout());
+        formWrapper.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 40, 5, 40);
+
+        // --- BACK BUTTON (Row 0) ---
+        JButton backBtn = new JButton("← Back to Portal");
+        backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
+        backBtn.setForeground(indigo600);
+        backBtn.setContentAreaFilled(false);
+        backBtn.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(79, 70, 229, 100), 1),
+            BorderFactory.createEmptyBorder(5, 15, 5, 15)
+        ));
+        backBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backBtn.setFocusPainted(false);
+        backBtn.addActionListener(e -> app.showPage("HOME"));
+        
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.insets = new Insets(0, 40, 30, 40);
+        formWrapper.add(backBtn, gbc);
+
+        // Header Section (Row 1)
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        JLabel signinTitle = new JLabel("Sign In");
+        signinTitle.setFont(new Font("SansSerif", Font.BOLD, 32));
+        gbc.gridy = 1; gbc.insets = new Insets(5, 40, 5, 40);
+        formWrapper.add(signinTitle, gbc);
+
+        JLabel subtitle = new JLabel("<html>Access your hospital dashboard.</html>");
+        subtitle.setForeground(slate500);
+        gbc.gridy = 2; gbc.insets = new Insets(0, 40, 30, 40);
+        formWrapper.add(subtitle, gbc);
 }
 
