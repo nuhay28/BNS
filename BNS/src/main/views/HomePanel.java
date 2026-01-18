@@ -61,4 +61,34 @@ public class AboutPanel extends JPanel {
             "We have refined the logic of ward allocation and patient auditing into a singular, high-integrity interface. "
             + "It facilitates real-time occupancy monitoring and absolute transparency for medical directors.",
             Color.WHITE, slate900, true
+        )
+    );
+     mainContent.add(Box.createRigidArea(new Dimension(0, 30)));
+
+        // 4. MANDATE CARD (Dark)
+        mainContent.add(createVerticalCard(
+            "📋 OUR MANDATE",
+            "Our objective is to empower medical institutions with data-driven tools that minimize clinical friction. "
+            + "We aim to enhance institutional accountability and improve patient safety.",
+            slate900, Color.WHITE, false
         ));
+
+        mainContent.add(Box.createRigidArea(new Dimension(0, 60)));
+
+        // 5. REGISTRY STANDARDS (Vertical List)
+        JLabel standardHeader = new JLabel("REGISTRY STANDARDS");
+        standardHeader.setFont(new Font("SansSerif", Font.BOLD, 20));
+        standardHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainContent.add(standardHeader);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 25)));
+
+        mainContent.add(createStandardRow("🩺", "Clinical Precision", "Utilizing MERN stack logic for high-availability management."));
+        mainContent.add(Box.createRigidArea(new Dimension(0, 15)));
+        mainContent.add(createStandardRow("📱", "Responsive Design", "Optimized for high-stress emergency departments and ward rounds."));
+        mainContent.add(Box.createRigidArea(new Dimension(0, 15)));
+        mainContent.add(createStandardRow("👥", "Staff Coordination", "Fostering collaboration between medical staff and hospital admins."));
+
+        mainContent.add(Box.createRigidArea(new Dimension(0, 80)));
+
+        
+       
