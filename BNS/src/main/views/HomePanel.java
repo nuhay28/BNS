@@ -92,3 +92,26 @@ public class AboutPanel extends JPanel {
 
         
        
+@Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2d = (Graphics2D) g;
+
+            if (backgroundImage != null) {
+                // Draw image to fill the screen (Center-crop style)
+                double imgWidth = backgroundImage.getWidth(null);
+                double imgHeight = backgroundImage.getHeight(null);
+                double screenWidth = getWidth();
+                double screenHeight = getHeight();
+                double scale = Math.max(screenWidth / imgWidth, screenHeight / imgHeight);
+                int scaledWidth = (int) (imgWidth * scale);
+                int scaledHeight = (int) (imgHeight * scale);
+                g2d.drawImage(backgroundImage, (int)(screenWidth - scaledWidth)/2, (int)(screenHeight - scaledHeight)/2, scaledWidth, scaledHeight, null);
+            }
+
+            // Draw the Slate-900/75 Backdrop Blur effect
+            g2d.setColor(slate950Overlay);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+        }
+    }
+}
