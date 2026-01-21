@@ -1,42 +1,117 @@
 package main.views;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
+import main.Application;
 
-public class HomePanel extends JPanel{
-    public HomePanel(Application app) {
-        setBackground(new Color(15, 23, 42)); // slate-950
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+public class AboutPanel extends JPanel {
+    // Colors from the Web Theme
+    private Color bgSlate = new Color(248, 250, 252);
+    private Color indigo600 = new Color(79, 70, 229);
+    private Color slate900 = new Color(15, 23, 42);
+    private Color slate500 = new Color(100, 116, 139);
 
-        // Title
-        JLabel title = new JLabel("<html><center>Hospital Bed<br><font color='#818cf8'>Notification System</font></center></html>");
-        title.setFont(new Font("SansSerif", Font.BOLD, 50));
-        title.setForeground(Color.WHITE);
+    public AboutPanel(Application app) {
+        setLayout(new BorderLayout());
+        setBackground(bgSlate);
+
+        // --- SCROLLABLE WRAPPER ---
+        JPanel mainContent = new JPanel();
+        mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
+        mainContent.setOpaque(false);
+        mainContent.setBorder(new EmptyBorder(50, 100, 50, 100)); // Large side margins for vertical elegance
+
+        // 1. BACK NAVIGATION
+        JButton backBtn = new JButton("← BACK TO PORTAL");
+        backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
+        backBtn.setForeground(slate500);
+        backBtn.setContentAreaFilled(false);
+        backBtn.setBorderPainted(false);
+        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backBtn.addActionListener(e -> app.showPage("DASHBOARD"));
+        mainContent.add(backBtn);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 40)));
+
+        // 2. HERO SECTION (Stacked)
+        JLabel iconLabel = new JLabel("🛡️");
+        iconLabel.setFont(new Font("SansSerif", Font.PLAIN, 50));
+        iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainContent.add(iconLabel);
+
+        JLabel title = new JLabel("<html><center>ABOUT <font color='#4F46E5'>BNS</font></center></html>");
+        title.setFont(new Font("SansSerif", Font.ITALIC | Font.BOLD, 64));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainContent.add(title);
+ JLabel subtitle = new JLabel("<html><center><p style='width: 500px'>"
+                + "The Clinical Bed Registry (BNS) is a specialized administrative ecosystem engineered to "
+                + "standardize ward management and synchronize patient throughput.</p></center></html>");
+        subtitle.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        subtitle.setForeground(slate500);
+        subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 15)));
+        mainContent.add(subtitle);
         
-        // Subtitle
-        JLabel sub = new JLabel("A modern, lightweight system for real-time bed assignment.");
-        sub.setForeground(new Color(203, 213, 225)); // slate-300
-        sub.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        mainContent.add(Box.createRigidArea(new Dimension(0, 60)));
 
-        // Buttons
-        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        btnPanel.setOpaque(false);
+        // 3. INFRASTRUCTURE CARD (White)
+        mainContent.add(createVerticalCard(
+            "🏢 THE INFRASTRUCTURE",
+            "We have refined the logic of ward allocation and patient auditing into a singular, high-integrity interface. "
+            + "It facilitates real-time occupancy monitoring and absolute transparency for medical directors.",
+            Color.WHITE, slate900, true
+        )
+    );
+     mainContent.add(Box.createRigidArea(new Dimension(0, 30)));
+
+        // 4. MANDATE CARD (Dark)
+        mainContent.add(createVerticalCard(
+            "📋 OUR MANDATE",
+            "Our objective is to empower medical institutions with data-driven tools that minimize clinical friction. "
+            + "We aim to enhance institutional accountability and improve patient safety.",
+            slate900, Color.WHITE, false
+        ));
+
+        mainContent.add(Box.createRigidArea(new Dimension(0, 60)));
+
+        // 5. REGISTRY STANDARDS (Vertical List)
+        JLabel standardHeader = new JLabel("REGISTRY STANDARDS");
+        standardHeader.setFont(new Font("SansSerif", Font.BOLD, 20));
+        standardHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainContent.add(standardHeader);
+        mainContent.add(Box.createRigidArea(new Dimension(0, 25)));
+
+        mainContent.add(createStandardRow("🩺", "Clinical Precision", "Utilizing MERN stack logic for high-availability management."));
+        mainContent.add(Box.createRigidArea(new Dimension(0, 15)));
+        mainContent.add(createStandardRow("📱", "Responsive Design", "Optimized for high-stress emergency departments and ward rounds."));
+        mainContent.add(Box.createRigidArea(new Dimension(0, 15)));
+        mainContent.add(createStandardRow("👥", "Staff Coordination", "Fostering collaboration between medical staff and hospital admins."));
+
+        mainContent.add(Box.createRigidArea(new Dimension(0, 80)));
+
         
-        JButton loginBtn = new JButton("Log In");
-        JButton aboutBtn = new JButton("About Us");
+       
+@Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2d = (Graphics2D) g;
 
-        loginBtn.addActionListener(e -> app.showPage("LOGIN"));
-        aboutBtn.addActionListener(e -> app.showPage("ABOUT"));
+            if (backgroundImage != null) {
+                // Draw image to fill the screen (Center-crop style)
+                double imgWidth = backgroundImage.getWidth(null);
+                double imgHeight = backgroundImage.getHeight(null);
+                double screenWidth = getWidth();
+                double screenHeight = getHeight();
+                double scale = Math.max(screenWidth / imgWidth, screenHeight / imgHeight);
+                int scaledWidth = (int) (imgWidth * scale);
+                int scaledHeight = (int) (imgHeight * scale);
+                g2d.drawImage(backgroundImage, (int)(screenWidth - scaledWidth)/2, (int)(screenHeight - scaledHeight)/2, scaledWidth, scaledHeight, null);
+            }
 
-        btnPanel.add(loginBtn);
-        btnPanel.add(aboutBtn);
-
-        // Layout Adding
-        gbc.gridx = 0; gbc.gridy = 0; gbc.insets = new Insets(10,10,10,10);
-        add(title, gbc);
-        gbc.gridy = 1;
-        add(sub, gbc);
-        gbc.gridy = 2;
-        add(btnPanel, gbc);
-    } 
+            // Draw the Slate-900/75 Backdrop Blur effect
+            g2d.setColor(slate950Overlay);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+        }
+    }
 }
