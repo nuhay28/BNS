@@ -6,93 +6,109 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import main.Application;
 
-public class AboutPanel extends JPanel {
-    // Colors from the Web Theme
-    private Color bgSlate = new Color(248, 250, 252);
+public class HomePanel extends JPanel {
+    // Colors from React Slate-950 theme
     private Color indigo600 = new Color(79, 70, 229);
-    private Color slate900 = new Color(15, 23, 42);
-    private Color slate500 = new Color(100, 116, 139);
+    private Color slate300 = new Color(203, 213, 225);
+    private Color slate950Overlay = new Color(15, 23, 42, 200); // 75% Alpha
 
-    public AboutPanel(Application app) {
+    public HomePanel(Application app) {
+        // Use a custom panel to handle the background image/overlay
         setLayout(new BorderLayout());
-        setBackground(bgSlate);
 
-        // --- SCROLLABLE WRAPPER ---
-        JPanel mainContent = new JPanel();
-        mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
-        mainContent.setOpaque(false);
-        mainContent.setBorder(new EmptyBorder(50, 100, 50, 100)); // Large side margins for vertical elegance
+        BackgroundContainer mainContainer = new BackgroundContainer();
+        mainContainer.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-        // 1. BACK NAVIGATION
-        JButton backBtn = new JButton("← BACK TO PORTAL");
-        backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
-        backBtn.setForeground(slate500);
-        backBtn.setContentAreaFilled(false);
-        backBtn.setBorderPainted(false);
-        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backBtn.addActionListener(e -> app.showPage("DASHBOARD"));
-        mainContent.add(backBtn);
-        mainContent.add(Box.createRigidArea(new Dimension(0, 40)));
-
-        // 2. HERO SECTION (Stacked)
-        JLabel iconLabel = new JLabel("🛡️");
-        iconLabel.setFont(new Font("SansSerif", Font.PLAIN, 50));
-        iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainContent.add(iconLabel);
-
-        JLabel title = new JLabel("<html><center>ABOUT <font color='#4F46E5'>BNS</font></center></html>");
-        title.setFont(new Font("SansSerif", Font.ITALIC | Font.BOLD, 64));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainContent.add(title);
- JLabel subtitle = new JLabel("<html><center><p style='width: 500px'>"
-                + "The Clinical Bed Registry (BNS) is a specialized administrative ecosystem engineered to "
-                + "standardize ward management and synchronize patient throughput.</p></center></html>");
-        subtitle.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        subtitle.setForeground(slate500);
-        subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainContent.add(Box.createRigidArea(new Dimension(0, 15)));
-        mainContent.add(subtitle);
+        // --- 1. ICON (Bed Icon replacement) ---
+        JLabel iconLabel = new JLabel("🛏️"); // You can replace with an ImageIcon
+        iconLabel.setFont(new Font("SansSerif", Font.PLAIN, 80));
+        iconLabel.setForeground(indigo600);
         
-        mainContent.add(Box.createRigidArea(new Dimension(0, 60)));
+        // --- 2. TITLE ---
+        JLabel title = new JLabel("<html><center>Hospital Bed<br><font color='#818cf8'>Notification System</font></center></html>");
+        title.setFont(new Font("SansSerif", Font.BOLD, 64));
+        title.setForeground(Color.WHITE);
 
-        // 3. INFRASTRUCTURE CARD (White)
-        mainContent.add(createVerticalCard(
-            "🏢 THE INFRASTRUCTURE",
-            "We have refined the logic of ward allocation and patient auditing into a singular, high-integrity interface. "
-            + "It facilitates real-time occupancy monitoring and absolute transparency for medical directors.",
-            Color.WHITE, slate900, true
-        )
-    );
-     mainContent.add(Box.createRigidArea(new Dimension(0, 30)));
+        // --- 3. SUBTITLE ---
+        JLabel sub = new JLabel("<html><center><p style='width: 500px'>"
+                + "A modern, lightweight system for real-time bed assignment and patient admission notifications."
+                + "</p></center></html>");
+        sub.setForeground(slate300);
+        // Change Font.LIGHT to Font.PLAIN
+        sub.setFont(new Font("SansSerif", Font.PLAIN, 20));
 
-        // 4. MANDATE CARD (Dark)
-        mainContent.add(createVerticalCard(
-            "📋 OUR MANDATE",
-            "Our objective is to empower medical institutions with data-driven tools that minimize clinical friction. "
-            + "We aim to enhance institutional accountability and improve patient safety.",
-            slate900, Color.WHITE, false
-        ));
+        // --- 4. BUTTON PANEL ---
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        btnPanel.setOpaque(false);
 
-        mainContent.add(Box.createRigidArea(new Dimension(0, 60)));
-
-        // 5. REGISTRY STANDARDS (Vertical List)
-        JLabel standardHeader = new JLabel("REGISTRY STANDARDS");
-        standardHeader.setFont(new Font("SansSerif", Font.BOLD, 20));
-        standardHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainContent.add(standardHeader);
-        mainContent.add(Box.createRigidArea(new Dimension(0, 25)));
-
-        mainContent.add(createStandardRow("🩺", "Clinical Precision", "Utilizing MERN stack logic for high-availability management."));
-        mainContent.add(Box.createRigidArea(new Dimension(0, 15)));
-        mainContent.add(createStandardRow("📱", "Responsive Design", "Optimized for high-stress emergency departments and ward rounds."));
-        mainContent.add(Box.createRigidArea(new Dimension(0, 15)));
-        mainContent.add(createStandardRow("👥", "Staff Coordination", "Fostering collaboration between medical staff and hospital admins."));
-
-        mainContent.add(Box.createRigidArea(new Dimension(0, 80)));
-
+        JButton loginBtn = createStyledButton("LOG IN", indigo600, Color.WHITE, true);
+        JButton registerBtn = createStyledButton("SIGN UP", new Color(0,0,0,0), Color.WHITE, false);
         
-       
-@Override
+        // Navigation Logic
+        loginBtn.addActionListener(e -> app.showPage("LOGIN"));
+        registerBtn.addActionListener(e -> app.showPage("REGISTER"));
+
+        btnPanel.add(loginBtn);
+        btnPanel.add(registerBtn);
+
+        // Layout Assembly
+        gbc.gridx = 0; gbc.insets = new Insets(10, 10, 10, 10);
+        
+        gbc.gridy = 0; mainContainer.add(iconLabel, gbc);
+        gbc.gridy = 1; mainContainer.add(title, gbc);
+        gbc.gridy = 2; mainContainer.add(sub, gbc);
+        gbc.gridy = 3; gbc.insets = new Insets(40, 10, 10, 10);
+        mainContainer.add(btnPanel, gbc);
+
+        add(mainContainer, BorderLayout.CENTER);
+    }
+
+    // --- BUTTON STYLING FACTORY ---
+    private JButton createStyledButton(String text, Color bg, Color fg, boolean isSolid) {
+        JButton btn = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                if (isSolid) {
+                    g2.setColor(bg);
+                    g2.fill(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 15, 15));
+                } else {
+                    g2.setColor(new Color(129, 140, 248)); // indigo-400
+                    g2.setStroke(new BasicStroke(2f));
+                    g2.draw(new RoundRectangle2D.Double(1, 1, getWidth()-2, getHeight()-2, 15, 15));
+                }
+                g2.dispose();
+                super.paintComponent(g);
+            }
+        };
+        
+        btn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btn.setForeground(fg);
+        btn.setPreferredSize(new Dimension(180, 55));
+        btn.setContentAreaFilled(false);
+        btn.setBorderPainted(false);
+        btn.setFocusPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        return btn;
+    }
+
+    // --- BACKGROUND PANEL WITH OVERLAY ---
+    class BackgroundContainer extends JPanel {
+        private Image backgroundImage;
+
+        public BackgroundContainer() {
+            // Path to your hospitalHallway.jpg
+            try {
+                backgroundImage = new ImageIcon(getClass().getResource("../assets/hospitalHallway.jpg")).getImage();
+            } catch (Exception e) {
+                System.out.println("Background image not found, falling back to solid color.");
+            }
+        }
+
+        @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
