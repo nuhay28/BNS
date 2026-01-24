@@ -4,12 +4,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.util.regex.Pattern;
+
 import main.Application;
 import main.services.AuthService;
 
 public class LoginPanel extends JPanel {
     private JTextField emailField;
     private JPasswordField passField;
+    private JButton loginBtn;
     private AuthService authService = new AuthService();
 
     private Color indigo600 = new Color(79, 70, 229);
@@ -79,11 +82,6 @@ public class LoginPanel extends JPanel {
         subtitle.setForeground(slate500);
         gbc.gridy = 2; gbc.insets = new Insets(0, 40, 30, 40);
         formWrapper.add(subtitle, gbc);
-        
-        JLabel subtitle = new JLabel("<html>Access your hospital dashboard.</html>");
-        subtitle.setForeground(slate500);
-        gbc.gridy = 2; gbc.insets = new Insets(0, 40, 30, 40);
-        formWrapper.add(subtitle, gbc);
 
         // Email Field (Row 3 & 4)
         gbc.insets = new Insets(5, 40, 5, 40);
@@ -136,6 +134,60 @@ public class LoginPanel extends JPanel {
         regBtn.setBorderPainted(false);
         gbc.gridy = 9;
         formWrapper.add(regBtn, gbc);
+
+                regBtn.addActionListener(e -> app.showPage("REGISTER"));
+        loginBtn.addActionListener(e -> handleLogin(app));
+
+        add(brandingPanel);
+        add(formWrapper);
     }
+
+    private void handleLogin(Application app) {
+        String email = emailField.getText();
+        String password = new String(passField.getPassword());
+        if (!Pattern.matches(EMAIL_PATTERN, email)) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid email.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            if(authService.login(email, password)) {
+                app.showPage("DASHBOARD");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Credentials", "Auth Failed", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    class GradientOverlayPanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            GradientPaint gp = new GradientPaint(0, 0, new Color(15, 23, 42), getWidth(), getHeight(), new Color(79, 70, 229));
+            g2d.setPaint(gp);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+        }
+    }
+
+    class StyledTextField extends JTextField {
+        public StyledTextField(String placeholder) {
+            setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(slate100, 2),
+                BorderFactory.createEmptyBorder(10, 15, 10, 15)
+            ));
+            setFont(new Font("SansSerif", Font.PLAIN, 14));
+        }
+    }
+
+    class StyledPasswordField extends JPasswordField {
+        public StyledPasswordField() {
+            setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(slate100, 2),
+                BorderFactory.createEmptyBorder(10, 15, 10, 15)
+            ));
+        }
+    }
+}
+
 
 
