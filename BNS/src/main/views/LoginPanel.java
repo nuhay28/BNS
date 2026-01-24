@@ -9,5 +9,73 @@ public class LoginPanel extends JPanel {
     private JTextField emailField;
     private JPasswordField passField;
     private AuthService authService = new AuthService();
+
+    private Color indigo600 = new Color(79, 70, 229);
+    private Color slate900 = new Color(15, 23, 42);
+    private Color slate500 = new Color(100, 116, 139);
+    private Color slate100 = new Color(241, 245, 249);
+
+    private static final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@(.+)$";
+
+    public LoginPanel(Application app) {
+        setLayout(new GridLayout(1, 2));
+        setBackground(Color.WHITE);
+        // --- LEFT SIDE: BRANDING PANEL ---
+        JPanel brandingPanel = new GradientOverlayPanel();
+        brandingPanel.setLayout(new BoxLayout(brandingPanel, BoxLayout.Y_AXIS));
+        brandingPanel.setBorder(new EmptyBorder(60, 60, 60, 60));
+
+        JLabel version = new JLabel("v2.5.0 • ENTERPRISE SECURE");
+        version.setForeground(new Color(255, 255, 255, 150));
+        version.setFont(new Font("SansSerif", Font.BOLD, 10));
+
+        JLabel heroText = new JLabel("<html><body style='width: 300px'>"
+                + "<h1 style='color:white; font-size:40pt; font-style:italic;'>Efficiency in <br>"
+                + "<font color='#818CF8'>Every Ward.</font></h1><br>"
+                + "<p style='color:#CBD5E1; font-size:14pt;'>Streamlining bed management and patient notifications with real-time intelligence.</p>"
+                + "</body></html>");
+        
+        brandingPanel.add(version);
+        brandingPanel.add(Box.createVerticalGlue());
+        brandingPanel.add(heroText);
+        brandingPanel.add(Box.createVerticalGlue());
+
+        // --- RIGHT SIDE: LOGIN FORM ---
+        JPanel formWrapper = new JPanel(new GridBagLayout());
+        formWrapper.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 40, 5, 40);
+
+        // --- BACK BUTTON (Row 0) ---
+        JButton backBtn = new JButton("← Back to Portal");
+        backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
+        backBtn.setForeground(indigo600);
+        backBtn.setContentAreaFilled(false);
+        backBtn.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(79, 70, 229, 100), 1),
+            BorderFactory.createEmptyBorder(5, 15, 5, 15)
+        ));
+        backBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backBtn.setFocusPainted(false);
+        backBtn.addActionListener(e -> app.showPage("HOME"));
+        
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.insets = new Insets(0, 40, 30, 40);
+        formWrapper.add(backBtn, gbc);
+
+        // Header Section (Row 1)
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        JLabel signinTitle = new JLabel("Sign In");
+        signinTitle.setFont(new Font("SansSerif", Font.BOLD, 32));
+        gbc.gridy = 1; gbc.insets = new Insets(5, 40, 5, 40);
+        formWrapper.add(signinTitle, gbc);
+
+        JLabel subtitle = new JLabel("<html>Access your hospital dashboard.</html>");
+        subtitle.setForeground(slate500);
+        gbc.gridy = 2; gbc.insets = new Insets(0, 40, 30, 40);
+        formWrapper.add(subtitle, gbc);
 }
 
