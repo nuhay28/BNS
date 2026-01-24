@@ -1,0 +1,2 @@
+javac -encoding UTF-8 -d bin src/main/*.java src/main/views/*.java src/main/views/components/*.java src/main/services/*.java
+java -cp bin main.Application

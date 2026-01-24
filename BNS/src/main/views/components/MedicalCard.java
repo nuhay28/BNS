@@ -53,5 +53,6 @@ public class MedicalCard extends JPanel {
         });
     }
         //added log to track MedicalCard creation
-        System.out.println("MedicalCard instance created!");
+        System.out.println ("MedicalCard instance created!");
 }
+
