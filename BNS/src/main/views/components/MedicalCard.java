@@ -7,24 +7,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MedicalCard extends JPanel {
-      private static final int CARD_WIDTH = 250;
-      private static final int CARD_HEIGHT = 180;
-      private static final int BOARDER_GAP = 20;
-      private static final Color HOVER_COLOR = new Color(245, 245, 250);
-
     public MedicalCard(String title, String desc, Color accentColor, Runnable onClick) {
         setLayout(new BorderLayout(10, 10));
-        setBackground(HOVER_COLOR);
-        setPreferredSize(new Dimension(CARD_WIDTH,CARD_HEIGHT));
+        setBackground(Color.WHITE);
+        setPreferredSize(new Dimension(250, 180));
         
         // Add the left border (the "accent")
         setBorder(BorderFactory.createCompoundBorder(
             new MatteBorder(0, 5, 0, 0, accentColor),
-            BorderFactory.createEmptyBorder(BOARDER_GAP, BOARDER_GAP, BOARDER_GAP, BOARDER_GAP)
+            BorderFactory.createEmptyBorder(20, 20, 20, 20)
         ));
 
-        // Icon Placeholder (In a real app, use an ImageIcon)
-        JLabel iconLabel = new JLabel("🔘"); // Lucide icon placeholder
+        // Using a safe Unicode circle (\u25CF) instead of an emoji to prevent encoding errors
+        JLabel iconLabel = new JLabel("\u25CF"); 
         iconLabel.setFont(new Font("SansSerif", Font.PLAIN, 24));
         iconLabel.setForeground(accentColor);
         
@@ -46,13 +41,17 @@ public class MedicalCard extends JPanel {
         add(textPanel, BorderLayout.CENTER);
 
         // Hover Effect & Click Logic
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
         addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) { setBackground(new Color(245, 245, 250)); }
-            public void mouseExited(MouseEvent e) { setBackground(Color.WHITE); }
-            public void mousePressed(MouseEvent e) { onClick.run(); }
+            public void mouseEntered(MouseEvent e) { 
+                setBackground(new Color(245, 245, 250)); 
+            }
+            public void mouseExited(MouseEvent e) { 
+                setBackground(Color.WHITE); 
+            }
+            public void mousePressed(MouseEvent e) { 
+                onClick.run(); 
+            }
         });
     }
-        //added log to track MedicalCard creation
-        System.out.println ("MedicalCard instance created!");
 }
-
