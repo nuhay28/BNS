@@ -1,6 +1,8 @@
 package main.views;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import main.Application;
 import main.services.AuthService;
@@ -77,5 +79,63 @@ public class LoginPanel extends JPanel {
         subtitle.setForeground(slate500);
         gbc.gridy = 2; gbc.insets = new Insets(0, 40, 30, 40);
         formWrapper.add(subtitle, gbc);
-}
+        
+        JLabel subtitle = new JLabel("<html>Access your hospital dashboard.</html>");
+        subtitle.setForeground(slate500);
+        gbc.gridy = 2; gbc.insets = new Insets(0, 40, 30, 40);
+        formWrapper.add(subtitle, gbc);
+
+        // Email Field (Row 3 & 4)
+        gbc.insets = new Insets(5, 40, 5, 40);
+        JLabel emailLabel = new JLabel("YOUR EMAIL");
+        emailLabel.setFont(new Font("SansSerif", Font.BOLD, 10));
+        emailLabel.setForeground(slate500);
+        gbc.gridy = 3;
+        formWrapper.add(emailLabel, gbc);
+
+        emailField = new StyledTextField("yourname@gmail.com");
+        gbc.gridy = 4;
+        formWrapper.add(emailField, gbc);
+
+        // Password Field (Row 5 & 6)
+        JLabel passLabel = new JLabel("PASSWORD");
+        passLabel.setFont(new Font("SansSerif", Font.BOLD, 10));
+        passLabel.setForeground(slate500);
+        gbc.gridy = 5; gbc.insets = new Insets(20, 40, 5, 40);
+        formWrapper.add(passLabel, gbc);
+
+        passField = new StyledPasswordField();
+        gbc.gridy = 6; gbc.insets = new Insets(5, 40, 5, 40);
+        formWrapper.add(passField, gbc);
+
+        // Show Password (Row 7)
+        JCheckBox showPass = new JCheckBox("Show Password");
+        showPass.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        showPass.setBackground(Color.WHITE);
+        showPass.addActionListener(e -> {
+            if (showPass.isSelected()) passField.setEchoChar((char) 0);
+            else passField.setEchoChar('\u2022');
+        });
+        gbc.gridy = 7;
+        formWrapper.add(showPass, gbc);
+
+        // Login Button (Row 8)
+        loginBtn = new JButton("Enter Dashboard →");
+        loginBtn.setPreferredSize(new Dimension(0, 50));
+        loginBtn.setBackground(Color.BLUE);
+        loginBtn.setForeground(Color.WHITE);
+        loginBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        loginBtn.setFocusPainted(false);
+        gbc.gridy = 8; gbc.insets = new Insets(30, 40, 10, 40);
+        formWrapper.add(loginBtn, gbc);
+
+        // Register Link (Row 9)
+        JButton regBtn = new JButton("New here? Register Facility");
+        regBtn.setForeground(indigo600);
+        regBtn.setContentAreaFilled(false);
+        regBtn.setBorderPainted(false);
+        gbc.gridy = 9;
+        formWrapper.add(regBtn, gbc);
+    }
+
 
