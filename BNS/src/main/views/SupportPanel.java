@@ -11,6 +11,7 @@ public class SupportPanel extends JPanel {
     private Color bgSlate = new Color(248, 250, 252);
     private Color indigoPrimary = new Color(79, 70, 229);
     private Color slate900 = new Color(15, 23, 42);
+    private Color slate500 = new Color(100, 116, 139); // Defined missing color
 
     public SupportPanel(Application app) {
         setLayout(new BorderLayout());
@@ -20,11 +21,25 @@ public class SupportPanel extends JPanel {
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.setOpaque(false);
-        container.setBorder(new EmptyBorder(60, 40, 60, 40));
+        container.setBorder(new EmptyBorder(40, 40, 60, 40));
 
-        // 1. HEADER SECTION
+        // 1. BACK NAVIGATION (Fixed: Added to container instead of mainContent)
+        JButton backBtn = new JButton("← BACK TO PORTAL");
+        backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
+        backBtn.setForeground(slate500);
+        backBtn.setContentAreaFilled(false);
+        backBtn.setBorderPainted(false);
+        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backBtn.addActionListener(e -> app.showPage("DASHBOARD"));
+        
+        container.add(backBtn);
+        container.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        // 2. HEADER SECTION
         JLabel iconLabel = new JLabel("🛟", SwingConstants.CENTER);
         iconLabel.setFont(new Font("SansSerif", Font.PLAIN, 40));
+        iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel title = new JLabel("HELPDESK & ASSISTANCE", SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.ITALIC | Font.BOLD, 48));
@@ -42,7 +57,7 @@ public class SupportPanel extends JPanel {
         container.add(subtitle);
         container.add(Box.createRigidArea(new Dimension(0, 50)));
 
-        // 2. MAIN SPLIT CONTENT (FAQ & FORM)
+        // 3. MAIN SPLIT CONTENT (FAQ & FORM)
         JPanel mainContent = new JPanel(new GridLayout(1, 2, 40, 0));
         mainContent.setOpaque(false);
 
@@ -98,6 +113,7 @@ public class SupportPanel extends JPanel {
         JTextArea messageArea = new JTextArea(4, 20);
         messageArea.setBackground(new Color(241, 245, 249));
         messageArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        messageArea.setLineWrap(true);
         innerForm.add(new JScrollPane(messageArea));
 
         innerForm.add(Box.createRigidArea(new Dimension(0, 25)));
@@ -108,6 +124,7 @@ public class SupportPanel extends JPanel {
         submitBtn.setFocusPainted(false);
         submitBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
         submitBtn.setPreferredSize(new Dimension(0, 50));
+        submitBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         submitBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "Inquiry Dispatched to Helpdesk"));
         innerForm.add(submitBtn);
 
@@ -117,10 +134,12 @@ public class SupportPanel extends JPanel {
         JPanel telegramCard = new RoundedPanel(30, slate900);
         telegramCard.setLayout(new BorderLayout());
         telegramCard.setPreferredSize(new Dimension(0, 80));
+        telegramCard.setMaximumSize(new Dimension(2000, 80));
         telegramCard.setBorder(new EmptyBorder(15, 25, 15, 25));
         
         JLabel tgLabel = new JLabel("<html><b style='color:white'>EMERGENCY DESK</b><br><small style='color:#94a3b8'>Real-time Support</small></html>");
         JButton tgBtn = new JButton("💬");
+        tgBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         tgBtn.addActionListener(e -> openWebpage("https://t.me/NYDev_Chat"));
         
         telegramCard.add(tgLabel, BorderLayout.WEST);
@@ -140,8 +159,6 @@ public class SupportPanel extends JPanel {
         mainScroll.getVerticalScrollBar().setUnitIncrement(16);
         add(mainScroll, BorderLayout.CENTER);
     }
-
-    // --- UTILITY COMPONENTS ---
 
     private JPanel createFAQItem(String q, String a) {
         JPanel p = new RoundedPanel(30, Color.WHITE);
@@ -182,7 +199,6 @@ public class SupportPanel extends JPanel {
         try { Desktop.getDesktop().browse(new URI(url)); } catch (Exception e) {}
     }
 
-    // Custom Rounded Panel Class
     class RoundedPanel extends JPanel {
         private int cornerRadius;
         private Color bgColor;
