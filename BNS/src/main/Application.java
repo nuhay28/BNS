@@ -20,13 +20,18 @@ public class Application extends JFrame {
         container.add(new LoginPanel(this), "LOGIN");
         container.add(new RegisterPanel(this), "REGISTER");
         container.add(new DashboardPanel(this), "DASHBOARD");
+        container.add(new MyAssignmentsPanel(this), "ASSIGNMENTS");
+        container.add(new NotificationsPanel(this), "NOTIFS");
+        container.add(new SupportPanel(this), "SUPPORT");
+        // Inside your Application constructor:
+        container.add(new BedsPanel(this), "BEDS");
 
         add(container);
         cardLayout.show(container, "HOME"); // Start at Home
         setVisible(true);
     }
-    
-     public void showPage(String name) {
+
+    public void showPage(String name) {
         cardLayout.show(container, name);
     }
 
@@ -37,5 +42,3 @@ public class Application extends JFrame {
         new Application();
     }
 }
-
-
