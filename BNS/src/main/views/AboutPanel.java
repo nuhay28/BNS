@@ -96,7 +96,7 @@ public class AboutPanel extends JPanel {
         contactBtn.setPreferredSize(new Dimension(500, 60));
         contactBtn.setMaximumSize(new Dimension(500, 60));
         contactBtn.setBackground(indigo600);
-        contactBtn.setForeground(Color.WHITE);
+        contactBtn.setForeground(Color.BLACK);
         contactBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
         contactBtn.setFocusPainted(false);
         contactBtn.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -52,7 +52,7 @@ public class BedCard extends JPanel {
         
         JButton saveBtn = new JButton("💾 Update Clinical Record");
         saveBtn.setBackground(new Color(15, 23, 42));
-        saveBtn.setForeground(Color.WHITE);
+        saveBtn.setForeground(Color.BLACK);
         
         JButton statusBtn = new JButton(status.equals("occupied") ? "🚪 Discharge" : "✅ Confirm Admission");
         statusBtn.setBackground(status.equals("occupied") ? Color.WHITE : new Color(79, 70, 229));

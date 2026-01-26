@@ -69,7 +69,7 @@ public class DashboardPanel extends JPanel {
 
         JButton logoutBtn = new JButton("LOGOUT");
         logoutBtn.setFont(new Font("SansSerif", Font.BOLD, 11));
-        logoutBtn.setForeground(Color.WHITE);
+        logoutBtn.setForeground(Color.BLACK);
         logoutBtn.setBackground(new Color(239, 68, 68));
         logoutBtn.addActionListener(e -> {
             if (JOptionPane.showConfirmDialog(this, "Terminate session?", "Logout", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -98,7 +98,7 @@ public class DashboardPanel extends JPanel {
         // Footer & Menu
         JButton menuBtn = new JButton("MENU");
         menuBtn.setBackground(new Color(15, 23, 42));
-        menuBtn.setForeground(Color.WHITE);
+        menuBtn.setForeground(Color.BLACK);
         menuBtn.setPreferredSize(new Dimension(100, 45));
         
         menuBtn.addActionListener(e -> {

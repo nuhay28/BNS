@@ -51,7 +51,7 @@ public class BedsPanel extends JPanel {
 
         JButton deptBtn = new JButton("📂 DEPARTMENTS");
         deptBtn.setBackground(new Color(15, 23, 42));
-        deptBtn.setForeground(Color.WHITE);
+        deptBtn.setForeground(Color.BLACK);
         deptBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
         
         deptBtn.addActionListener(e -> {

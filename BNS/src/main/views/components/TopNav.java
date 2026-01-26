@@ -40,7 +40,7 @@ public class TopNav extends JPanel {
 
         JButton logout = new JButton("LOGOUT");
         logout.setBackground(new Color(239, 68, 68));
-        logout.setForeground(Color.WHITE);
+        logout.setForeground(Color.BLACK);
         logout.setFocusPainted(false);
         logout.setCursor(new Cursor(Cursor.HAND_CURSOR));
         logout.addActionListener(e -> {
