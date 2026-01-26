@@ -140,7 +140,7 @@ public class SupportPanel extends JPanel {
         JLabel tgLabel = new JLabel("<html><b style='color:white'>EMERGENCY DESK</b><br><small style='color:#94a3b8'>Real-time Support</small></html>");
         JButton tgBtn = new JButton("💬");
         tgBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        tgBtn.addActionListener(e -> openWebpage("https://t.me/NYDev_Chat"));
+        tgBtn.addActionListener(e -> openWebpage("https://t.me/BNSSupportSystem"));
         
         telegramCard.add(tgLabel, BorderLayout.WEST);
         telegramCard.add(tgBtn, BorderLayout.EAST);
