@@ -95,14 +95,14 @@ public class DashboardPanel extends JPanel {
         }
         centerContainer.add(grid, BorderLayout.CENTER);
 
-        // Footer & Menu
-        JButton menuBtn = new JButton("MENU");
-        menuBtn.setBackground(new Color(15, 23, 42));
-        menuBtn.setForeground(Color.BLACK);
-        menuBtn.setPreferredSize(new Dimension(100, 45));
+        // Footer & ASSIGNED
+        JButton ASSIGNEDBtn = new JButton("ASSIGNED");
+        ASSIGNEDBtn.setBackground(new Color(15, 23, 42));
+        ASSIGNEDBtn.setForeground(Color.BLACK);
+        ASSIGNEDBtn.setPreferredSize(new Dimension(100, 45));
         
-        menuBtn.addActionListener(e -> {
-            JPanel menuPanel = new JPanel(new GridLayout(0, 2, 10, 10));
+        ASSIGNEDBtn.addActionListener(e -> {
+            JPanel ASSIGNEDPanel = new JPanel(new GridLayout(0, 2, 10, 10));
             
             String[] depts = deptData.keySet().toArray(new String[0]);
             JComboBox<String> deptCombo = new JComboBox<>(depts);
@@ -118,13 +118,13 @@ public class DashboardPanel extends JPanel {
             JTextField wardExpiry = new JTextField("2026-06-01");
             JTextField bedsField = new JTextField("20");
 
-            menuPanel.add(new JLabel("Department:")); menuPanel.add(deptCombo);
-            menuPanel.add(new JLabel("Deptexpiry:")); menuPanel.add(deptExpiry);
-            menuPanel.add(new JLabel("Ward:")); menuPanel.add(wardCombo);
-            menuPanel.add(new JLabel("Wardexpiry:")); menuPanel.add(wardExpiry);
-            menuPanel.add(new JLabel("Beds:")); menuPanel.add(bedsField);
+            ASSIGNEDPanel.add(new JLabel("Department:")); ASSIGNEDPanel.add(deptCombo);
+            ASSIGNEDPanel.add(new JLabel("AssignedUntill:")); ASSIGNEDPanel.add(deptExpiry);
+            ASSIGNEDPanel.add(new JLabel("Ward:")); ASSIGNEDPanel.add(wardCombo);
+            ASSIGNEDPanel.add(new JLabel("AssignedUntil:")); ASSIGNEDPanel.add(wardExpiry);
+            ASSIGNEDPanel.add(new JLabel("Beds:")); ASSIGNEDPanel.add(bedsField);
 
-            int result = JOptionPane.showConfirmDialog(this, menuPanel, "System Configuration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(this, ASSIGNEDPanel, "System Configuration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
             if (result == JOptionPane.OK_OPTION) {
                 JOptionPane.showMessageDialog(this, "Configured: " + deptCombo.getSelectedItem() + " - " + wardCombo.getSelectedItem());
@@ -135,7 +135,7 @@ public class DashboardPanel extends JPanel {
 
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.LEFT));
         footer.setOpaque(false);
-        footer.add(menuBtn);
+        footer.add(ASSIGNEDBtn);
         centerContainer.add(footer, BorderLayout.SOUTH);
         add(centerContainer, BorderLayout.CENTER);
     }
